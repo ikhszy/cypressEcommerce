@@ -27,31 +27,32 @@ describe('Register Test', function() {
         // Enter the registration page
         cy.visit('https://automationteststore.com/');
         headNav.loginRegisterButton().click();
-        regPage.RegisterButton().click();
+        regPage.RegisterButton()
         regPage.RegisterFormTitle().should('have.text', ' Create Account');
 
         // personal details
-        regPage.RegisterFormFirstName().type(firstName)
-        regPage.RegisterFormLastName().type(lastName)
-        regPage.RegisterFormEmail().type(email)
-        regPage.RegisterFormTelephone().type(phoneNumber)
+        cy.log(firstName + '.' + lastName + '@hotmail.com')
+        regPage.RegisterFormFirstName(firstName)
+        regPage.RegisterFormLastName(lastName)
+        regPage.RegisterFormEmail(email)
+        regPage.RegisterFormTelephone(phoneNumber)
         
         // Your Address
-        regPage.RegisterFormCompany().type(company)
-        regPage.RegisterFormAddress1().type(address1)
-        regPage.RegisterFormAddress2().type(address2)
-        regPage.RegisterFormCity().type(city)
-        regPage.RegisterFormCountry().select(nation)
-        regPage.RegisterFormRegionSelect().select('Jakarta Raya')
-        regPage.RegisterFormZipCode().type(zip)
-        regPage.RegisterFormLoginName().type(loginName)
-        regPage.RegisterFormPassword().type(password)
-        regPage.RegisterFormPasswordConfirm().type(password)
+        regPage.RegisterFormCompany(company)
+        regPage.RegisterFormAddress1(address1)
+        regPage.RegisterFormAddress2(address2)
+        regPage.RegisterFormCity(city)
+        regPage.RegisterFormCountry(nation)
+        regPage.RegisterFormRegionSelect('Jakarta Raya')
+        regPage.RegisterFormZipCode(zip)
+        regPage.RegisterFormLoginName(loginName)
+        regPage.RegisterFormPassword(password)
+        regPage.RegisterFormPasswordConfirm(password)
 
         // others and submit
-        regPage.RegisterSubscribeNo().click()
-        regPage.RegisterPrivacyCheck().click()
-        regPage.RegisterSubmitButton().click()
+        regPage.RegisterSubscribeNo()
+        regPage.RegisterPrivacyCheck()
+        regPage.RegisterSubmitButton()
 
         // verify
         regPage.RegisterSuccessTitle().should('have.text', ' Your Account Has Been Created!')

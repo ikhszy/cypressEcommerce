@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 class RegisterPage{
 
     RegisterTitle() {
@@ -9,87 +10,123 @@ class RegisterPage{
     }
 
     RegisterButton() {
-        return cy.get('#accountFrm > fieldset > button')
+        var button = cy.get('#accountFrm > fieldset > button');
+        button.click();
+        return this;
     }
 
     RegisterFormTitle() {
         return cy.get('#maincontainer > div > div > div > h1 > span.maintext')
     }
 
-    RegisterFormFirstName() {
-        return cy.get('#AccountFrm_firstname')
+    RegisterFormFirstName(first) {
+        var firstName = cy.get('#AccountFrm_firstname')
+        firstName.type(first)
+        return this;
     }
     
-    RegisterFormLastName() {
-        return cy.get('#AccountFrm_lastname')
+    RegisterFormLastName(last) {
+        var lastName = cy.get('#AccountFrm_lastname')
+        lastName.type(last)
+        return this;
     }
 
-    RegisterFormEmail() {
-        return cy.get('#AccountFrm_email')
+    RegisterFormEmail(inputEmail) {
+        var email = cy.get('#AccountFrm_email')
+        email.type(inputEmail)
+        return this;
     }
 
-    RegisterFormTelephone() {
-        return cy.get('#AccountFrm_telephone')
+    RegisterFormTelephone(phone) {
+        var telephone = cy.get('#AccountFrm_telephone')
+        telephone.type(phone)
+        return this;
     }
 
-    RegisterFormFax() {
-        return cy.get('#AccountFrm_fax')
+    RegisterFormFax(faxNum) {
+        var fax = cy.get('#AccountFrm_fax')
+        fax.type(faxNum)
+        return this;
     }
 
-    RegisterFormCompany() {
-        return cy.get('#AccountFrm_company')
+    RegisterFormCompany(comp) {
+        var company = cy.get('#AccountFrm_company')
+        company.type(comp)
+        return this;
     }
 
-    RegisterFormAddress1() {
-        return cy.get('#AccountFrm_address_1')
+    RegisterFormAddress1(addr1) {
+        var address1 = cy.get('#AccountFrm_address_1')
+        address1.type(addr1)
+        return this;
     }
 
-    RegisterFormAddress2() {
-        return cy.get('#AccountFrm_address_2')
+    RegisterFormAddress2(addr2) {
+        var address2 = cy.get('#AccountFrm_address_2')
+        address2.type(addr2)
+        return this;
     }
 
-    RegisterFormCity() {
-        return cy.get('#AccountFrm_city')
+    RegisterFormCity(cityName) {
+        var city = cy.get('#AccountFrm_city')
+        city.type(cityName)
+        return this;
     }
 
-    RegisterFormRegionSelect() {
-        return cy.get('#AccountFrm_zone_id')
+    RegisterFormRegionSelect(reg) {
+        var region = cy.get('#AccountFrm_zone_id')
+        region.select(reg)
+        return this;
     }
 
-    RegisterFormZipCode() {
-        return cy.get('#AccountFrm_postcode')
+    RegisterFormZipCode(zip) {
+        var postal = cy.get('#AccountFrm_postcode')
+        postal.type(zip)
+        return this;
     }
 
-    RegisterFormCountry() {
-        return cy.get('#AccountFrm_country_id')
+    RegisterFormCountry(cty) {
+        var country = cy.get('#AccountFrm_country_id')
+        country.select(cty)
+        return this;
     }
 
-    RegisterFormLoginName() {
-        return cy.get('#AccountFrm_loginname')
+    RegisterFormLoginName(lgn) {
+        var loginName = cy.get('#AccountFrm_loginname')
+        loginName.type(lgn)
+        return this;
     }
 
-    RegisterFormPassword() {
-        return cy.get('#AccountFrm_password')
+    RegisterFormPassword(pass) {
+        var password = cy.get('#AccountFrm_password')
+        password.type(pass)
+        return this;
     }
 
-    RegisterFormPasswordConfirm() {
-        return cy.get('#AccountFrm_confirm')
+    RegisterFormPasswordConfirm(passCfm) {
+        var passConfirm = cy.get('#AccountFrm_confirm')
+        passConfirm.type(passCfm)
+        return this;
     }
 
     RegisterSubscribeYes() {
-        return cy.get('#AccountFrm_newsletter1')
+        var subscribeYes = cy.get('#AccountFrm_newsletter1')
+        subscribeYes.click();
     }
 
     RegisterSubscribeNo() {
-        return cy.get('#AccountFrm_newsletter0')
+        var subscribeNo = cy.get('#AccountFrm_newsletter0')
+        subscribeNo.click();
     }
 
     RegisterPrivacyCheck() {
-        return cy.get('#AccountFrm_agree')
+        var Priv = cy.get('#AccountFrm_agree')
+        Priv.click();
     }
 
     RegisterSubmitButton() {
-        return cy.get('#AccountFrm > div.form-group > div > div > button')
+        var submitBtn = cy.get('#AccountFrm > div.form-group > div > div > button')
+        submitBtn.click();
     }
 
     RegisterSuccessTitle() {
