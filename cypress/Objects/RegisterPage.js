@@ -133,6 +133,27 @@ class RegisterPage{
         return cy.get('.maintext')
     }
 
+    LoginTitle() {
+        return cy.get('#maincontainer > div > div > div > div > div.col-sm-6.returncustomer > h2')
+    }
+
+    LoginFormName(fName) {
+        var formName = cy.get('#loginFrm_loginname')
+        formName.type(fName);
+        return this;
+    }
+
+    LoginFormPass(fpass) {
+        var formPass = cy.get('#loginFrm_password')
+        formPass.type(fpass)
+        return this;
+    }
+
+    LoginFormSubmit() {
+        var submitBtn = cy.get('#loginFrm > fieldset > button')
+        submitBtn.click();
+    }
+
 }
 
 export default RegisterPage
