@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 class headerNavigation {
 
     homeLogo() {
@@ -52,6 +53,10 @@ class headerNavigation {
         return cy.get('body > div > header > div.container-fluid > div > div.block_7 > ul > li > ul > li > div.row > div:nth-child(2) > a')
     }
 
+    headerDropdownBase() {
+        return cy.get('#categorymenu > nav > ul')
+    }
+
     headerNavHomeBase() {
         return cy.get('#categorymenu > nav > ul > li:nth-child(1)')
     }
@@ -70,6 +75,71 @@ class headerNavigation {
 
     headerNavHomeCheckout() {
         return cy.get('#main_menu > li:nth-child(4) > a')
+    }
+
+    headerNavApparelSelect(item) {
+        // options are 'Shoes' and 'T-shirts'
+        cy.get('#categorymenu > nav > ul > li:nth-child(2)')
+        .contains('Apparel')
+        .next('.subcategories').then($el=>{
+            cy.wrap($el).invoke('show')
+            cy.wrap($el).contains(item).click();
+        })
+    }    
+
+    headerNavMakeupSelect(item) {
+        // options are: Cheeks, Eyes, Face, Lips, Nails, Value Sets
+        
+        cy.get('#categorymenu > nav > ul > li:nth-child(3)')
+        .contains('Makeup')
+        .next('.subcategories').then($el=>{
+            cy.wrap($el).invoke('show')
+            cy.wrap($el).contains(item).click();
+        })
+    }
+    
+    headerNavSkincareSelect(item) {
+        // options are: Eyes, Face, Gifts, Hands, Sun
+        
+        cy.get('#categorymenu > nav > ul > li:nth-child(4)')
+        .contains('Skincare')
+        .next('.subcategories').then($el=>{
+            cy.wrap($el).invoke('show')
+            cy.wrap($el).contains(item).click();
+        })
+    }
+
+    headerNavMenSelect(item) {
+        // options are: Body, Fragrance, Pre-Shave, Skincare
+        
+        cy.get('#categorymenu > nav > ul > li:nth-child(5)')
+        .contains('Men')
+        .next('.subcategories').then($el=>{
+            cy.wrap($el).invoke('show')
+            cy.wrap($el).contains(item).click();
+        })
+    }
+
+    headerNavHaircareSelect(item) {
+        // options are: Conditioner, Shampoo
+        
+        cy.get('#categorymenu > nav > ul > li:nth-child(6)')
+        .contains('Hair Care')
+        .next('.subcategories').then($el=>{
+            cy.wrap($el).invoke('show')
+            cy.wrap($el).contains(item).click();
+        })
+    }
+
+    headerNavBooksSelect(item) {
+        // options are: Audio, Paperback
+        
+        cy.get('#categorymenu > nav > ul > li:nth-child(7)')
+        .contains('Book')
+        .next('.subcategories').then($el=>{
+            cy.wrap($el).invoke('show')
+            cy.wrap($el).contains(item).click();
+        })
     }
 }
 
