@@ -5,22 +5,34 @@ class ItemPage{
         return cy.get('.bgnone')
     }
 
-    itemBasePriceDiff() {
-        let price
-        cy.get('.productfilneprice').as('text')
-        price = cy.get('@text')
-        return price
+    itemBasePrice() {
+        // still not working as intended
+        cy.get('.productfilneprice').invoke('text').as('price')
+        var ItemPrice = cy.get('@price').then($ele => {
+        ItemPrice = $ele.split('$');
+        cy.log(ItemPrice)
+        return ItemPrice;
+        })
     }
 
-    itemBasePrice() {
-        var priceBase
-        cy.get('.productfilneprice')
-        .then (($val) => {
-            var price = $val.innerText()
-            price.substring(1)
-            priceBase += price;
-        })
-        return priceBase;
+    itemQuantity(q) {
+        var quan = cy.get('#product_quantity')
+        quan.clear()
+        quan.type(q)
+        return this;
+    }
+
+    itemRadioListOne(i) {
+    // start with 0
+        var radio = cy.get('#product > fieldset > div:nth-child(1) > div > label:nth-child(' + i + ')')
+        radio.click()
+
+        radio.find('input').invoke('attr', 'checked').should('contain', 'checked')
+        return this;
+    }
+
+    itemPurchaseButton() {
+        return cy.get('.cart').click()
     }
 }
 

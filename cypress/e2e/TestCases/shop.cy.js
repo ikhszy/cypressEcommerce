@@ -20,6 +20,10 @@ describe('Register Test', function() {
         ItemList.ItemView('1')
 
         // purchase the item
-        cy.log(ItemDetails.itemBasePrice())
-    })
+        ItemDetails.itemRadioListOne(3)
+        ItemDetails.itemQuantity('3')
+        ItemDetails.itemPurchaseButton()
+
+
+        })
 })
