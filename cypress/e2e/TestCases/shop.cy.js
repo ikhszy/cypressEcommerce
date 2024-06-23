@@ -11,9 +11,13 @@ describe('Register Test', function() {
     const ItemDetails = new ItemPage()
     const Cart = new CartPage()
 
-    it('Add 1 shoes item to the cart', function() {
-        // open the shoes category
+
+    beforeEach(() => {
         cy.visit('https://automationteststore.com/index.php', { responseTimeout: 120000 })
+    })
+
+    it('Add 1 shoes item to the cart', function() {
+        // select from shoes category
         headNav.headerNavApparelSelect('Shoes')
         ItemList.CategoryTitle().should('have.text', 'Shoes')
 
@@ -45,4 +49,51 @@ describe('Register Test', function() {
         Cart.cartShipEstimate()
         Cart.cartCheckout()
         })
+
+    it.only("add multiple items to the cart", function() {
+        // select from shoes category
+        headNav.headerNavApparelSelect('Shoes')
+        ItemList.CategoryTitle().should('have.text', 'Shoes')
+
+        // loop and add 2 different items
+        for(let i = 1; i<=2; i++) {
+        // view the item from item list
+        ItemList.ItemPrice(i)
+        ItemList.ItemView(i)
+
+        // purchase the item
+        ItemDetails.itemRadioListOne(3)
+        ItemDetails.itemQuantity('3')
+        ItemDetails.itemPurchaseButton()
+        cy.wait(2000)
+
+        // continue shopping if only single items added
+        if(i < 2) {
+            headNav.headerNavApparelSelect('Shoes')
+            ItemList.CategoryTitle().should('have.text', 'Shoes')
+            }
+        }
+
+        // entering the checkout page
+        Cart.pageTitle()
+        Cart.cartTableCount(3)
+
+        // change quantity and update each items
+        for(let j = 2; j <= 3; j++) {
+        let rand =  Math.round(Math.random() * 10)
+            Cart.cartItemQuantity(j, rand)
+            Cart.cartTableUpdate()
+            Cart.cartItemQuantityCheck(j, rand)
+        }
+
+        // Ship to my country :)
+        cy.wait(2000)
+        Cart.cartShipCountry("Indonesia")
+        cy.wait(2000)
+        Cart.cartShipState("Jakarta Raya")
+        cy.wait(2000)
+        Cart.cartShipZip('13450')
+        Cart.cartShipEstimate()
+        Cart.cartCheckout()
+    })
 })
