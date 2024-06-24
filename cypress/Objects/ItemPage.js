@@ -8,8 +8,9 @@ class ItemPage{
     itemBasePrice() {
         // still not working as intended
         cy.get('.productfilneprice').invoke('text').as('price')
-        var ItemPrice = cy.get('@price').then($ele => {
-        ItemPrice = $ele.split('$');
+        var ItemPrice;
+        return cy.get('@price').then($ele => {
+        ItemPrice = $ele.replaceAll('$', '')
         cy.log(ItemPrice)
         return ItemPrice;
         })

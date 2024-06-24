@@ -50,7 +50,7 @@ describe('Register Test', function() {
         Cart.cartCheckout()
         })
 
-    it.only("add multiple items to the cart", function() {
+    it("add multiple items to the cart", function() {
         // select from shoes category
         headNav.headerNavApparelSelect('Shoes')
         ItemList.CategoryTitle().should('have.text', 'Shoes')
