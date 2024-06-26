@@ -16,18 +16,27 @@ describe('Register Test', function() {
         cy.visit('https://automationteststore.com/index.php', { responseTimeout: 120000 })
     })
 
-    it('Add 1 shoes item to the cart', function() {
+    it.only('Add 1 shoes item to the cart', function() {
         // select from shoes category
         headNav.headerNavApparelSelect('Shoes')
         ItemList.CategoryTitle().should('have.text', 'Shoes')
 
         // view the item from item list
-        ItemList.ItemPrice('1')
         ItemList.ItemView('1')
 
-        // purchase the item
+        // get the item base price
+        ItemDetails.itemBasePrice().invoke('text').as('basePrice')
+
+        // select item details
         ItemDetails.itemRadioListOne(3)
         ItemDetails.itemQuantity('3')
+
+        // check the new price
+        cy.get('@basePrice').then($ele => {
+            var bPrice = $ele.replaceAll('$','')
+            var tPrice = parseFloat(bPrice) * 3
+            ItemDetails.itemTotalPrice().should('have.text', '$' + tPrice +'.00')
+        })
         ItemDetails.itemPurchaseButton()
 
         // entering the checkout page

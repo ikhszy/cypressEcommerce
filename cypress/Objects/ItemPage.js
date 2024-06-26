@@ -7,19 +7,21 @@ class ItemPage{
 
     itemBasePrice() {
         // still not working as intended
-        cy.get('.productfilneprice').invoke('text').as('price')
-        var ItemPrice;
-        return cy.get('@price').then($ele => {
-        ItemPrice = $ele.replaceAll('$', '')
-        cy.log(ItemPrice)
-        return ItemPrice;
-        })
+        return cy.get('.productfilneprice')
+    }
+
+    itemTotalPrice() {
+        // decided to add click first to handle animation of total price changing
+        var totalPrice = cy.get('.total-price')
+        totalPrice.click()
+        return totalPrice;
     }
 
     itemQuantity(q) {
         var quan = cy.get('#product_quantity')
         quan.clear()
         quan.type(q)
+        cy.wait(1000)
         return this;
     }
 
