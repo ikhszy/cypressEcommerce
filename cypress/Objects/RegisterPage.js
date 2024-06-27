@@ -133,6 +133,10 @@ class RegisterPage{
         return cy.get('.maintext')
     }
 
+    RegisterSuccessContinue() {
+        return cy.get('.mb40 > .btn').click()
+    }
+
     LoginTitle() {
         return cy.get('#maincontainer > div > div > div > div > div.col-sm-6.returncustomer > h2')
     }
