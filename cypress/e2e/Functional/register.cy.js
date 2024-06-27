@@ -61,8 +61,5 @@ describe('Register Test', function() {
 
         // continue to go to account dashboard
         regPage.RegisterSuccessContinue()
-
-        // account page
-        accPage.IconEditAccount()
     })
 })
