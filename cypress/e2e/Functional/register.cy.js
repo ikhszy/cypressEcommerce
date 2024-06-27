@@ -2,10 +2,12 @@
 
 import headerNavigation from "../../Objects/headerNavigation";
 import RegisterPage from "../../Objects/RegisterPage";
+import MyAccountPage from "../../Objects/MyAccountPage";
 
 describe('Register Test', function() {
     const headNav = new headerNavigation()
     const regPage = new RegisterPage()
+    const accPage = new MyAccountPage()
 
     const faker = require('@faker-js/faker');
 
@@ -25,7 +27,7 @@ describe('Register Test', function() {
 
     it('Successfully register', function() {
         // Enter the registration page
-        cy.visit('https://automationteststore.com/');
+        cy.visit('https://automationteststore.com/index.php', { responseTimeout: 120000 })
         headNav.loginRegisterButton().click();
         regPage.RegisterButton()
         regPage.RegisterFormTitle().should('have.text', ' Create Account');
@@ -56,5 +58,11 @@ describe('Register Test', function() {
 
         // verify
         regPage.RegisterSuccessTitle().should('have.text', ' Your Account Has Been Created!')
+
+        // continue to go to account dashboard
+        regPage.RegisterSuccessContinue()
+
+        // account page
+        accPage.IconEditAccount()
     })
 })
