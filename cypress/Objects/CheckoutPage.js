@@ -64,6 +64,7 @@ class CheckoutPage{
     CheckoutItemBasePrice(num) {
         // num start from 0 for the 1st item
         return cy.get('.table.confirm_products').find('tr').eq(num).find('td').eq(2)
+
     }
 
     CheckoutItemQuan(num) {
