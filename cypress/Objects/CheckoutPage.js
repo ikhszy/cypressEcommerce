@@ -11,59 +11,69 @@ class CheckoutPage{
     }
 
     CheckoutShipName() {
-        return cy.get('.confirm_shippment_options > tbody > tr > :nth-child(1)')
+        return cy.get('.confirm_shippment_options').find('.align_left').first()
     }
 
     CheckoutShipAddress() {
-        return cy.get('.confirm_shippment_options > tbody > tr > :nth-child(2) > address')
+        return cy.get('.confirm_shippment_options').find('address')
     }
 
     CheckoutShipRate() {
-        return cy.get('.confirm_shippment_options > tbody > tr > :nth-child(3)')
+        return cy.get('.confirm_shippment_options').find('.align_left').eq(2)
     }
 
     CheckoutShipEditButton() {
-        return cy.get('.confirm_shippment_options > tbody > tr > .align_right > .btn').click()
+        return cy.get('.confirm_shippment_options').find('.btn-xs').click()
+
     }
 
     CheckoutPayName() {
-        return cy.get('.confirm_shippment_options > tbody > tr > .align_right > .btn')
+        return cy.get('confirm_payment_options').find('.align_left').first()
     }
 
     CheckoutPayAddress() {
-        return cy.get('.confirm_payment_options > tbody > tr > :nth-child(2) > address')
+        return cy.get('.confirm_payment_options').find('address')
     }
 
     CheckoutPayMethod() {
-        return cy.get('.confirm_payment_options > tbody > tr > :nth-child(2) > address')
+        return cy.get('.confirm_payment_options').find('.align_left').eq(2)
     }
 
     CheckoutPayEditButton() {
-        return cy.get('.confirm_payment_options > tbody > tr > .align_right > :nth-child(1)')
+        return cy.get('.confirm_payment_options').find('.btn-xs').first()
     }
 
     CheckoutPayCouponButton() {
-        return cy.get('.align_right > :nth-child(4)')
+        return cy.get('.confirm_payment_options').find('.btn-xs').last()
     }
 
-    CheckoutItemThumbnail() {
-        return cy.get('.confirm_products > tbody > tr > :nth-child(1) > a > img')
+    CheckoutItemEditButton() {
+        return cy.get('.pull-right.mr10.btn.btn-default btn-xs').click()
     }
 
-    CheckoutItemTitle() {
-        return cy.get(':nth-child(2) > .checkout_heading')
+    CheckoutItemThumbnail(num) {
+        // num start from 0 for the 1st item
+        return cy.get('.table.confirm_products').find('tr').eq(num).find('img')
     }
 
-    CheckoutItemBasePrice() {
-        return cy.get('.confirm_products > tbody > tr > :nth-child(3)')
+    CheckoutItemTitle(num) {
+        // num start from 0 for the 1st item
+        return cy.get('.table.confirm_products').find('tr').eq(num).find('.checkout_heading').first()
     }
 
-    CheckoutItemQuan() {
-        return cy.get('.confirm_products > tbody > tr > :nth-child(4)')
+    CheckoutItemBasePrice(num) {
+        // num start from 0 for the 1st item
+        return cy.get('.table.confirm_products').find('tr').eq(num).find('td').eq(2)
     }
 
-    CheckoutItemTotalPrice() {
-        return cy.get('td.checkout_heading')
+    CheckoutItemQuan(num) {
+        // num start from 0 for the 1st item
+        return cy.get('.table.confirm_products').find('tr').eq(num).find('td').eq(3)
+    }
+
+    CheckoutItemTotalPrice(num) {
+        // num start from 0 for the 1st item
+        return cy.get('.table.confirm_products').find('tr').eq(num).find('.checkout_heading').last()
     }
 
     CheckoutPriceSubTotal() {
@@ -74,8 +84,58 @@ class CheckoutPage{
         return cy.get(':nth-child(2) > :nth-child(2) > .bold')
     }
 
-    CheckoutPriceTotal() {
+    CheckoutPriceRetail() {
         return cy.get(':nth-child(3) > :nth-child(2) > .bold')
+    }
+
+    CheckoutPriceTotal() {
+        return cy.get(':nth-child(4) > :nth-child(2) > .bold')
+    }
+
+    CheckoutOrderSumQuan(num) {
+        // num is for the item row, start from 0
+        return cy.get('.sidewidt').find('tr').eq(num).find('.align_left.valign_top')
+    }
+
+    CheckoutOrderSumTitle(num) {
+        // num is for the item row, start from 0
+        return cy.get('.sidewidt').find('tr').eq(num).find('.align_left.valign_top > a')
+    }
+
+    CheckoutOrderSumDetails(num, numDetails) {
+        // num is for the item row, start from 0
+        // num details is for item details, also start from 0
+        return cy.get('.sidewidt').find('tr').eq(num)
+        .find('.align_left.valign_top > div > small').eq(numDetails)
+    }
+
+    CheckoutOrderSumPrice(num) {
+        // num is for the item row, start from 0
+        return cy.get('.sidewidt').find('tr').eq(num).find('.align_right.valign_top > b')
+    }
+
+    CheckoutSideSubtotal() {
+        return cy.get('sidewidt').find('table').eq(1).find('tr').eq(0)
+        .find('td').eq(1)
+        .find('cart_block_total')
+    }
+
+    CheckoutSideShip() {
+        return cy.get('sidewidt').find('table').eq(1).find('tr').eq(1)
+        .find('td').eq(1)
+        .find('cart_block_total')
+    }
+
+    CheckoutSideRetail() {
+        return cy.get('sidewidt').find('table').eq(1).find('tr').eq(2)
+        .find('td').eq(1)
+        .find('cart_block_total')
+    }
+
+    CheckoutSideTotal() {
+        return cy.get('sidewidt').find('table').eq(1).find('tr').eq(3)
+        .find('td').eq(1)
+        .find('cart_block_total')
     }
 
     CheckoutPriceBackButton() {
