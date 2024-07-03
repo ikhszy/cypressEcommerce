@@ -129,5 +129,19 @@ describe('E2E testing', ()=> {
         Cart.cartShipZip('13450')
         Cart.cartShipEstimate()
         Cart.cartCheckout()
+
+        // checkout page
+        // compare the item name
+        cy.get('@itemName').then($ele => {
+            chckout.CheckoutItemTitle(0).should('have.text', $ele)
+            chckout.CheckoutOrderSumTitle(0).should('have.text', $ele)
+        })
+
+        // compare base price
+        cy.get('@basePrice').then($ele => {
+            let num = $ele.trim()
+            chckout.CheckoutItemBasePrice(0).should('have.text', num)
+            chckout.CheckoutOrderSumPrice(0).should('have.text', num)
+        })
     })
 })
