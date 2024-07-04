@@ -28,7 +28,7 @@ class CheckoutPage{
     }
 
     CheckoutPayName() {
-        return cy.get('confirm_payment_options').find('.align_left').first()
+        return cy.get('.confirm_payment_options').find('.align_left').first()
     }
 
     CheckoutPayAddress() {
@@ -40,11 +40,11 @@ class CheckoutPage{
     }
 
     CheckoutPayEditButton() {
-        return cy.get('.confirm_payment_options').find('.btn-xs').first()
+        return cy.get('.confirm_payment_options').find('.btn-xs').first().click()
     }
 
     CheckoutPayCouponButton() {
-        return cy.get('.confirm_payment_options').find('.btn-xs').last()
+        return cy.get('.confirm_payment_options').find('.btn-xs').last().click()
     }
 
     CheckoutItemEditButton() {

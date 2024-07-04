@@ -7,6 +7,7 @@ import CartPage from '../../Objects/CartPage';
 import RegisterPage from "../../Objects/RegisterPage";
 import MyAccountPage from "../../Objects/MyAccountPage";
 import CheckoutPage from "../../Objects/CheckoutPage";
+import ShippingPage from "../../Objects/ShippingPage";
 
 describe('E2E testing', ()=> {
 
@@ -17,12 +18,13 @@ describe('E2E testing', ()=> {
     const ItemDetails = new ItemPage()
     const Cart = new CartPage()
     const chckout = new CheckoutPage()
+    const ship = new ShippingPage()
     const faker = require('@faker-js/faker');
 
     let firstName = faker.fakerEN.person.firstName()
     let lastName = faker.fakerEN.person.lastName()
     let email = faker.fakerEN.internet.email()
-    let phoneNumber = faker.fakerEN.phone.number()
+    let phoneNumber = faker.fakerEN.string.numeric(8)
     let company = faker.fakerEN.company.buzzNoun()
     let address1 = faker.fakerEN.location.streetAddress()
     let address2 = faker.fakerEN.location.street()
@@ -100,6 +102,7 @@ describe('E2E testing', ()=> {
         ItemDetails.itemBasePrice().invoke('text').as('basePrice')
 
         // select item details
+        ItemDetails.itemTitle().invoke('text').as('itemName')
         ItemDetails.itemRadioListOne(3)
         ItemDetails.itemQuantity('3')
 
@@ -142,6 +145,49 @@ describe('E2E testing', ()=> {
             let num = $ele.trim()
             chckout.CheckoutItemBasePrice(0).should('have.text', num)
             chckout.CheckoutOrderSumPrice(0).should('have.text', num)
+        })
+
+        // edit shipping info
+        chckout.CheckoutShipEditButton()
+        ship.ShipAddressEditButton()
+        var newAdress = faker.fakerEN.location.streetAddress()
+        ship.ShipFormFirstName(faker.fakerEN.person.firstName())
+        ship.ShipFormLastName(faker.fakerEN.person.lastName())
+        ship.ShipFormLastComp(faker.fakerEN.company.buzzVerb())
+        ship.ShipFormAddr1(newAdress)
+        ship.ShipFormCity(faker.fakerEN.location.city())
+        ship.ShipFormNation('Indonesia')
+        cy.wait(2000)
+        ship.ShipFormRegion('Jakarta Raya')
+        ship.ShipFormZip('10110')
+        ship.ShipContinueButton(1)
+
+        // confirm the adress changed
+        chckout.CheckoutShipAddress().should('contain.text', newAdress)
+
+        // change payment address
+        chckout.CheckoutPayEditButton()
+        ship.ShipAddressEditButton()
+
+        // count total address
+        ship.ShipFormRadio().then($count => {
+            var counter = $count.length
+
+            // pick random radio to click
+            var rand = Math.floor(Math.random() * counter)
+            ship.ShipFormRadio().eq(rand).click()
+
+            // get the new address for comparison later
+            ship.ShipFormRadioAddress(rand).invoke('text').as('payAddr')
+        })
+
+        ship.ShipContinueButton(0)
+        // asserting the change
+        cy.get('@payAddr').then($ele => {
+            chckout.CheckoutPayName().invoke('text').then($comp => {
+                let paddr = $comp.replace(/\n|\t/g,'')
+                expect($ele.replace(/,/g,'')).to.have.string(paddr.substring(0, paddr.length - 8))
+            })
         })
     })
 })

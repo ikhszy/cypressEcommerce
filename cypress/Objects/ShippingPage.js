@@ -11,7 +11,7 @@ class ShippingPage {
     }
 
     ShipAddressEditButton() {
-        return cy.get("[title='Change Address']")
+        return cy.get("[title='Change Address']").click()
     }
 
     ShipMethodRadio() {
@@ -24,7 +24,7 @@ class ShippingPage {
     }
 
     ShipBackButton() {
-        return cy.get("[title='Back']")
+        return cy.get("[title='Back']").click()
     }
 
     ShipContinueButton(num) {
@@ -33,12 +33,15 @@ class ShippingPage {
         0 = for using existing (form) and outside of form
         1 = for new address (form)
         */
-        return cy.get("[title='Continue']").eq(num)
+        return cy.get("[title='Continue']").eq(num).click()
     }
 
-    ShipFormRadio(num) {
-        // start from 0 in case already have multiple address
-        return cy.get("[type='radio']").eq(num)
+    ShipFormRadio() {
+        return cy.get("[type='radio']")
+    }
+
+    ShipFormRadioAddress(num) {
+        return cy.get('.table.table-striped').find('tr').eq(num).find('.control-label.inline')
     }
 
     ShipFormFirstName(fname) {
@@ -77,3 +80,5 @@ class ShippingPage {
         return cy.get('#Address2Frm_country_id').select(ntn)
     }
 }
+
+export default ShippingPage
