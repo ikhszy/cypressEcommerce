@@ -144,7 +144,7 @@ class CheckoutPage{
     }
 
     CheckoutConfirmOrderButton() {
-        return cy.get('#checkout_btn')
+        return cy.get('#checkout_btn').click()
     }
 
 }
