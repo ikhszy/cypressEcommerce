@@ -14,6 +14,10 @@ Some details about this:
 
 https://github.com/ikhszy/cypressEcommerce/assets/57410839/40853cad-4813-4a72-82b6-5100df55874b
 
+# Dashboard
+
+<img width="1122" alt="image" src="https://github.com/ikhszy/cypressEcommerce/assets/57410839/a89eed33-eb78-4bdb-98b8-58c75f819705">
+
 # Installation guide:
 1. Download and install [VS Code](https://code.visualstudio.com/)
 2. Download and install [Git]()
