@@ -18,9 +18,17 @@ class ShippingPage {
         return cy.get("[type='radio']")
     }
 
-    ShipComment(cmd) {
+    ShipAddressComment(cmd) {
         // cmd should be a string
         return cy.get('#shipping_comment').type(cmd)
+    }
+
+    ShipPayComment(cmd) {
+        return cy.get('#payment_comment').type(cmd)
+    }
+
+    shipCheckbox() {
+        return cy.get('#payment_agree')
     }
 
     ShipBackButton() {

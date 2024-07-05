@@ -8,6 +8,8 @@ import RegisterPage from "../../Objects/RegisterPage";
 import MyAccountPage from "../../Objects/MyAccountPage";
 import CheckoutPage from "../../Objects/CheckoutPage";
 import ShippingPage from "../../Objects/ShippingPage";
+import ConfirmPurchasePage from "../../Objects/ConfirmPurchasePage";
+import OrderDetailsPage from "../../Objects/OrderDetailsPage";
 
 describe('E2E testing', ()=> {
 
@@ -19,6 +21,8 @@ describe('E2E testing', ()=> {
     const Cart = new CartPage()
     const chckout = new CheckoutPage()
     const ship = new ShippingPage()
+    const purc = new ConfirmPurchasePage()
+    const ord = new OrderDetailsPage()
     const faker = require('@faker-js/faker');
 
     let firstName = faker.fakerEN.person.firstName()
@@ -188,6 +192,66 @@ describe('E2E testing', ()=> {
                 let paddr = $comp.replace(/\n|\t/g,'')
                 expect($ele.replace(/,/g,'')).to.have.string(paddr.substring(0, paddr.length - 8))
             })
+        })
+
+        // edit payment
+        chckout.CheckoutPayEditButton()
+
+        // add comment
+        var cmd = faker.fakerEN.lorem.lines(2)
+        ship.ShipPayComment(cmd)
+        ship.shipCheckbox().check()
+        ship.shipCheckbox().should('be.checked')
+        ship.ShipContinueButton(0)
+
+        // change address
+        chckout.CheckoutPayEditButton()
+        ship.ShipAddressEditButton()
+
+        // count total address
+        ship.ShipFormRadio().then($count => {
+            var counter = $count.length
+
+            // pick random radio to click
+            var rand = Math.floor(Math.random() * counter)
+            ship.ShipFormRadio().eq(rand).click()
+
+            // get the new address for comparison later
+            ship.ShipFormRadioAddress(rand).invoke('text').as('payAddr')
+        })
+
+        ship.ShipContinueButton(0)
+        // asserting the change
+        // can be considered as very flaky as i'm using substring to trim the phone number
+        // since i'm changing phone to consist of 8 digits, it should be fine
+        cy.get('@payAddr').then($ele => {
+            chckout.CheckoutPayName().invoke('text').then($comp => {
+                let paddr = $comp.replace(/\n|\t/g,'')
+                expect($ele.replace(/,/g,'')).to.have.string(paddr.substring(0, paddr.length - 8))
+            })
+        })
+
+        // confirm purchase
+        chckout.CheckoutConfirmOrderButton()
+
+        // check the invoice
+        // first check on invoice ID
+        purc.PurchaseOrderId().invoke('text').as('orderId')
+        purc.PurchaseInvoiceRedirect()
+        cy.get('@orderId').then($ele => {
+            let ordId = $ele.substring(11, $ele.length - 18)
+            ord.OrderLeftTable().should('contain.text', ordId)
+        })
+
+        // second check on item name
+        cy.get('@itemName').then($ele => {
+            ord.OrderItemTitle(1).should('have.text', $ele)
+        })
+
+        // third check on item price
+        cy.get('@basePrice').then($ele => {
+            let num = $ele.trim()
+            ord.OrderItemPrice(1).should('have.text', num)
         })
     })
 })
