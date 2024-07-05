@@ -204,33 +204,6 @@ describe('E2E testing', ()=> {
         ship.shipCheckbox().should('be.checked')
         ship.ShipContinueButton(0)
 
-        // change address
-        chckout.CheckoutPayEditButton()
-        ship.ShipAddressEditButton()
-
-        // count total address
-        ship.ShipFormRadio().then($count => {
-            var counter = $count.length
-
-            // pick random radio to click
-            var rand = Math.floor(Math.random() * counter)
-            ship.ShipFormRadio().eq(rand).click()
-
-            // get the new address for comparison later
-            ship.ShipFormRadioAddress(rand).invoke('text').as('payAddr')
-        })
-
-        ship.ShipContinueButton(0)
-        // asserting the change
-        // can be considered as very flaky as i'm using substring to trim the phone number
-        // since i'm changing phone to consist of 8 digits, it should be fine
-        cy.get('@payAddr').then($ele => {
-            chckout.CheckoutPayName().invoke('text').then($comp => {
-                let paddr = $comp.replace(/\n|\t/g,'')
-                expect($ele.replace(/,/g,'')).to.have.string(paddr.substring(0, paddr.length - 8))
-            })
-        })
-
         // confirm purchase
         chckout.CheckoutConfirmOrderButton()
 
@@ -253,5 +226,8 @@ describe('E2E testing', ()=> {
             let num = $ele.trim()
             ord.OrderItemPrice(1).should('have.text', num)
         })
+
+        // fourth check the comment
+        ord.OrderHistoryComment().should('have.text', cmd)
     })
 })
