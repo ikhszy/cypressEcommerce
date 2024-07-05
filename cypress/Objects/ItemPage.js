@@ -21,7 +21,7 @@ class ItemPage{
         var quan = cy.get('#product_quantity')
         quan.clear()
         quan.type(q)
-        cy.wait(1000)
+        cy.wait(2000)
         return this;
     }
 

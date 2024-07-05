@@ -61,7 +61,7 @@ class OrderDetailsPage{
     }
 
     OrderHistoryComment() {
-        return cy.get('table.table-striped.table-bordered').eq(3).find('tr').eq(1).find('td').eq(2)
+        return cy.get('.contentpanel').find('.container-fluid').find('.content')
     }
 
     OrderContinueButton() {
