@@ -40,11 +40,13 @@ describe('E2E testing', ()=> {
 
     before(() => {
         cy.visit('https://automationteststore.com/index.php', { responseTimeout: 120000 })
+        cy.fixture('user.json').then(function(user) {
+            globalThis.user = user
+        })
     })
 
     it('e2e', () => {
-        // Enter registration page
-        cy.visit('https://automationteststore.com/index.php', { responseTimeout: 120000 })
+        // Enter registration page\
         headNav.loginRegisterButton().click();
         regPage.RegisterButton()
         regPage.RegisterFormTitle().should('have.text', ' Create Account');
@@ -73,6 +75,11 @@ describe('E2E testing', ()=> {
         regPage.RegisterPrivacyCheck()
         regPage.RegisterSubmitButton()
 
+        cy.writeFile('cypress/fixtures/user.json', {
+        "username": loginName,
+        "password": password
+        })
+
         // verify registration is a success
         regPage.RegisterSuccessTitle().should('have.text', ' Your Account Has Been Created!')
 
@@ -86,8 +93,8 @@ describe('E2E testing', ()=> {
         regPage.LoginTitle().should('have.text', 'Returning Customer');
         
         // fill the login form
-        regPage.LoginFormName(loginName)
-        regPage.LoginFormPass(password)
+        regPage.LoginFormName(user.username)
+        regPage.LoginFormPass(user.password)
         regPage.LoginFormSubmit()
 
         // Verify logged in successfully
