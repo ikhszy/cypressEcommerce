@@ -9,6 +9,13 @@ describe('Login Test', function() {
     const regPage = new RegisterPage()
     const MyAcc = new MyAccountPage()
 
+    before(() => {
+        cy.visit('https://automationteststore.com/index.php', { responseTimeout: 120000 })
+        cy.fixture('user.json').then(function(user) {
+            globalThis.user = user
+        })
+    })
+
     it('successfully logged in', function() {
         // Enter the login page
         cy.visit('https://automationteststore.com/');
@@ -16,8 +23,8 @@ describe('Login Test', function() {
         regPage.LoginTitle().should('have.text', 'Returning Customer');
         
         // fill the login form
-        regPage.LoginFormName('koloTerorita')
-        regPage.LoginFormPass('password123')
+        regPage.LoginFormName(user.username)
+        regPage.LoginFormPass(user.password)
         regPage.LoginFormSubmit()
 
         // Verify logged in successfully
