@@ -158,6 +158,10 @@ class RegisterPage{
         submitBtn.click();
     }
 
+    LoginError() {
+        return cy.get('.alert.alert-error.alert-danger')
+    }
+
 }
 
 export default RegisterPage

@@ -16,9 +16,20 @@ describe('Login Test', function() {
         })
     })
 
+    afterEach(() => {
+        MyAcc.MyAccountTitle().invoke('text').as('title')
+        cy.get('@title').then($ele => {
+            var title = String($ele)
+            if(title == ' My Account') {
+                MyAcc.IconLogoff();
+            } else {
+                headNav.loginRegisterButton()
+            }
+        })
+    })
+
     it('successfully logged in', function() {
         // Enter the login page
-        cy.visit('https://automationteststore.com/');
         headNav.loginRegisterButton().click();
         regPage.LoginTitle().should('have.text', 'Returning Customer');
         
@@ -29,5 +40,25 @@ describe('Login Test', function() {
 
         // Verify logged in successfully
         MyAcc.MyAccountTitle().should('have.text', ' My Account');
+    })
+
+    it('failed login with wrong password', function() {
+        // fill the login form
+        regPage.LoginFormName(user.username)
+        regPage.LoginFormPass('wrongpassword!!')
+        regPage.LoginFormSubmit()
+
+        // verify text
+        regPage.LoginError().should('contain.text', 'Incorrect login')
+    })
+
+    it('failed login with empty username', function() {
+        // fill the login form
+        regPage.LoginFormName(user.username)
+        regPage.LoginFormPass('wrongpassword!!')
+        regPage.LoginFormSubmit()
+
+        // verify text
+        regPage.LoginError().should('contain.text', 'Incorrect login')
     })
 })
