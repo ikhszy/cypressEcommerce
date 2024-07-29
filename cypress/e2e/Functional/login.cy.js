@@ -54,8 +54,8 @@ describe('Login Test', function() {
 
     it('failed login with empty username', function() {
         // fill the login form
-        regPage.LoginFormName(user.username)
-        regPage.LoginFormPass('wrongpassword!!')
+        regPage.LoginFormName('')
+        regPage.LoginFormPass(user.password)
         regPage.LoginFormSubmit()
 
         // verify text
