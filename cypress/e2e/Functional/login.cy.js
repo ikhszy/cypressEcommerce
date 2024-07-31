@@ -16,18 +16,6 @@ describe('Login Test', function() {
         })
     })
 
-    afterEach(() => {
-        MyAcc.MyAccountTitle().invoke('text').as('title')
-        cy.get('@title').then($ele => {
-            var title = String($ele)
-            if(title == ' My Account') {
-                MyAcc.IconLogoff();
-            } else {
-                headNav.loginRegisterButton()
-            }
-        })
-    })
-
     it('successfully logged in', function() {
         // Enter the login page
         headNav.loginRegisterButton().click();
@@ -43,6 +31,9 @@ describe('Login Test', function() {
     })
 
     it('failed login with wrong password', function() {
+        headNav.loginRegisterButton().click();
+        regPage.LoginTitle().should('have.text', 'Returning Customer');
+
         // fill the login form
         regPage.LoginFormName(user.username)
         regPage.LoginFormPass('wrongpassword!!')
@@ -53,8 +44,10 @@ describe('Login Test', function() {
     })
 
     it('failed login with empty username', function() {
+        headNav.loginRegisterButton().click();
+        regPage.LoginTitle().should('have.text', 'Returning Customer');
+
         // fill the login form
-        regPage.LoginFormName('')
         regPage.LoginFormPass(user.password)
         regPage.LoginFormSubmit()
 
