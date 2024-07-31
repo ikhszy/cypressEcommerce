@@ -4,7 +4,11 @@
   "description": "Cypress on AutomationTestStore website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "triggerAlltest-headless": "npx cypress run",
+    "triggerAlltest-headed": "npx cypress run --headed",
+    "triggerAlltest-chrome": "npx cypress run --browser chrome",
+    "triggerAlltest-dashboard": "npx cypress run --record --key 2d7ffff0-c2ae-49ae-bf57-a7d5ce65032d"
   },
   "author": "Ikhsan",
   "license": "ISC",
