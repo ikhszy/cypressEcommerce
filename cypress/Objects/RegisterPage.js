@@ -129,6 +129,30 @@ class RegisterPage{
         submitBtn.click();
     }
 
+    RegisterAlertBox() {
+        return cy.get('.alert.alert-error.alert-danger')
+    }
+
+    RegisterAlertClose() {
+        return cy.get('.close')
+    }
+
+    RegisterError(num) {
+        /*
+            change num accordingly
+            0 --> first name
+            1 --> last name
+            2 --> email
+            6 --> Address 1
+            8 --> City
+            9 --> Region/State
+            10 --> ZipCode
+            12 --> login name
+            13 --> password
+        */
+        return cy.get('.form-group ').eq(num).find('.help-block')
+    }
+
     RegisterSuccessTitle() {
         return cy.get('.maintext')
     }
