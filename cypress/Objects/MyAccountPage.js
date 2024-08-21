@@ -59,6 +59,10 @@ class MyAccountPage {
     IconLogoff() {
         return cy.get('[data-original-title="Logoff"]').click()
     }
+
+    AlertSuccess() {
+        return cy.get('.alert.alert-success')
+    }
 }
 
 export default MyAccountPage
