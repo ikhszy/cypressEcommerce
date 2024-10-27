@@ -50,5 +50,12 @@ class ItemsListPage{
         cy.log(newPrice)
         return newPrice;
     }
+
+    ItemName(item) {
+        // return object
+        // name should be returned on the case
+        var obj = cy.get('.prdocutname').eq(item)
+        return obj;
+    }
 }
 export default ItemsListPage
