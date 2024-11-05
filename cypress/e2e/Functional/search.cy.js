@@ -34,7 +34,7 @@ describe("search feature", function() {
         
     })
 
-    it.only("successfully search by selecting the categories", function() {
+    it("successfully search by selecting the categories", function() {
         // we'll be using "By" as our keyword as it yields multiple results
         headNav.headerSearch().type('By');
         headNav.headerSearchCategory(7).click();
