@@ -18,32 +18,36 @@ class AccountAddressPage {
         return cy.get('.contentpanel').find('.genericbox.border-bottom').eq(count).find('button[title="Edit"]').click()
     }
 
+    addressDelete(count) {
+        return cy.get('.contentpanel').find('.genericbox.border-bottom').eq(count).find('button[title="Delete"]').click()
+    }
+
     addressNewBtn() {
         return cy.get('a[title="New Address"]').click()
     }
 
     addressFirstName(fname) {
-        return cy.get('#AddressFrm_firstname').type(fname)
+        return cy.get('#AddressFrm_firstname').clear().type(fname)
     }
 
     addressLastName(lname) {
-        return cy.get('#AddressFrm_lastname').type(lname)
+        return cy.get('#AddressFrm_lastname').clear().type(lname)
     }
 
     addressCompany(com) {
-        return cy.get('#AddressFrm_company').type(com)
+        return cy.get('#AddressFrm_company').clear().type(com)
     }
 
     addressAddr1(addr1) {
-        return cy.get('#AddressFrm_address_1').type(addr1)
+        return cy.get('#AddressFrm_address_1').clear().type(addr1)
     }
 
     addressAddr2(addr2) {
-        return cy.get('#AddressFrm_address_2').type(addr2)
+        return cy.get('#AddressFrm_address_2').clear().type(addr2)
     }
 
     addressCity(city) {
-        return cy.get('#AddressFrm_city').type(city)
+        return cy.get('#AddressFrm_city').clear().type(city)
     }
 
     addressState(state) {
@@ -51,7 +55,7 @@ class AccountAddressPage {
     }
 
     addressZip(zip) {
-        return cy.get('#AddressFrm_postcode').type(zip)
+        return cy.get('#AddressFrm_postcode').clear().type(zip)
     }
 
     addressCountry(nation) {

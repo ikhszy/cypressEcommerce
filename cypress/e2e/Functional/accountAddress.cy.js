@@ -52,6 +52,7 @@ describe('Account Address Book', function() {
         Adrs.addressZip(faker.fakerEN.location.zipCode())
         Adrs.addressCountry("United States")
         Adrs.addressState(faker.fakerEN.location.state())
+        Adrs.addressDefaultCheckbox(0)
 
         // submit and check for success alert
         Adrs.addressSubmitBtn()
@@ -64,5 +65,73 @@ describe('Account Address Book', function() {
         Adrs.addressListDetails(1).should('contain.text', firstName)
         Adrs.addressListDetails(1).should('contain.text', lastName)
         Adrs.addressListDetails(1).should('contain.text', address1)
+    })
+
+    it('edit the newly created address', function() {
+        // enter the new address edit form
+        Adrs.addressEdit(1)
+
+        // not sure why i kept having to login? even when i tried manually, same things doesn't happen
+        regPage.LoginFormName(user.username)
+        regPage.LoginFormPass(user.password)
+        regPage.LoginFormSubmit()
+
+        Adrs.addressEdit(1)
+
+        // generate new variable for comparison later
+        var firstName2 = faker.fakerEN.person.firstName()
+        var lastName2 = faker.fakerEN.person.lastName()
+        var address2 = faker.fakerEN.location.streetAddress()
+
+        // changing current address
+        Adrs.addressFirstName(firstName2)
+        Adrs.addressLastName(lastName2)
+        Adrs.addressCompany(faker.fakerEN.company.buzzNoun())
+        Adrs.addressAddr1(address2)
+        Adrs.addressCity(faker.fakerEN.location.city())
+        Adrs.addressZip(faker.fakerEN.location.zipCode())
+        Adrs.addressCountry("Austria")
+        Adrs.addressState(faker.fakerDE_AT.location.state())
+        Adrs.addressDefaultCheckbox(0)
+
+        // submit and check for success alert
+        Adrs.addressSubmitBtn()
+        Adrs.addressSuccessAlert().should('be.visible')
+
+
+        // compare the new address against input data
+        // even after i clicked no for default, it still count as default
+        Adrs.addressListDetails(0).should('contain.text', firstName2)
+        Adrs.addressListDetails(0).should('contain.text', lastName2)
+        Adrs.addressListDetails(0).should('contain.text', address2)
+    })
+
+    it('delete the newly created address', function() {
+         // enter the new address edit form
+        Adrs.addressEdit(1)
+
+        // not sure why i kept having to login? even when i tried manually, same things doesn't happen
+        regPage.LoginFormName(user.username)
+        regPage.LoginFormPass(user.password)
+        regPage.LoginFormSubmit()
+        
+        // return the default back to the original
+        Adrs.addressEdit(0)
+        Adrs.addressDefaultCheckbox(1)
+        Adrs.addressSubmitBtn()
+
+        // delete the new one
+        Adrs.addressDelete(1)
+
+        // verify alert
+        Adrs.addressSuccessAlert().should('be.visible')
+        Adrs.addressSuccessAlert().should('contain.text', 'Your address has been successfully deleted')
+
+        // verify list count
+        Adrs.addressList().should('not.have.length.gte', 1)
+
+        // verify we delete the correct data
+        Adrs.addressListDetails(0).should('not.contain.text', 'Austria')
+    
     })
 })
