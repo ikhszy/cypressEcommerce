@@ -37,6 +37,43 @@ class ItemPage{
     itemPurchaseButton() {
         return cy.get('.cart').click()
     }
+
+    itemTab(tabSelect) {
+        // fill tabSelect with 0 (item description) or 1 (reviews)
+        return cy.get('#myTab').find('li').eq(tabSelect).click()
+    }
+
+    itemReviewStar(rating) {
+        // fill the rating manually. any input outside 1 - 4 will be considered as 5 stars
+        if(rating === 1) {
+            return cy.get('#rating1').click()
+        } else if(rating === 2) {
+            return cy.get('#rating2').click()
+        } else if(rating === 3) {
+            return cy.get('#rating3').click()
+        } else if(rating === 4) {
+            return cy.get('#rating4').click()
+        } else {
+            return cy.get('#rating5').click()
+        }
+    }
+
+    itemReviewName(revName) {
+    // revName for inputting name in String format
+        return cy.get('#name').type(revName)
+    }
+
+    itemReviewYourReview(review) {
+        return cy.get('#text').type(review)
+    }
+
+    itemReviewCode(code) {
+        return cy.get('#captcha').type(code)
+    }
+
+    itemReviewSubmit() {
+        return cy.get('#review_submit').click()
+    }
 }
 
 export default ItemPage

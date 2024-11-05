@@ -19,14 +19,25 @@ describe("search feature", function() {
         headNav.headerNavApparelSelect('T-shirts')
         iListPage.ItemName(0).invoke('attr','title').as('itemTitle');
 
+        let qSearch;
+
         // start searching for the item
         cy.get('@itemTitle').then($ele => {
-            let qSearch = $ele
+            qSearch = $ele
             headNav.headerSearch()
             .type(qSearch)
             .type('{enter}')
-
-
         })
+    
+         // count item should >= 1
+        iListPage.itemBox().should('have.length.at.least', 1)
+        
+    })
+
+    it.only("successfully search by selecting the categories", function() {
+        // we'll be using "By" as our keyword as it yields multiple results
+        headNav.headerSearch().type('By');
+        headNav.headerSearchCategory(7).click();
+        headNav.headerSearch().type('{enter}');
     })
 })

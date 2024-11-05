@@ -21,6 +21,10 @@ class ItemsListPage{
         selectSort.select(Value)
     }
 
+    itemBox() {
+        return cy.get('.col-md-3.col-sm-6.col-xs-12')
+    }
+
     ItemView(item) {
         // input numerical value based on the item list
         var hoverPlaceholder = cy.get('#maincontainer > div > div > div > div > div.thumbnails.grid.row.list-inline > div:nth-child(' + item + ') > div.thumbnail > div.shortlinks')

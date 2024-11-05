@@ -17,6 +17,10 @@ class headerNavigation {
         return cy.get('#filter_keyword')
     }
 
+    headerSearchCategory(num) {
+        return cy.get('#search-category').find('.search-category').eq(num)
+    }
+
     headerCurrency() {
         return cy.get('body > div > header > div.container-fluid > div > div.block_6 > ul > li')
     }
