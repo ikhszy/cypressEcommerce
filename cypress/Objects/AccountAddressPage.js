@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-class AccountAddress {
+class AccountAddressPage {
 
     addressTitle() {
         return cy.get('.maintext')
@@ -8,6 +8,10 @@ class AccountAddress {
 
     addressList() {
         return cy.get('.contentpanel').find('.genericbox.border-bottom')
+    }
+
+    addressListDetails(count) {
+         return cy.get('.contentpanel').find('.genericbox.border-bottom').eq(count).find('address')
     }
 
     addressEdit(count) {
@@ -69,6 +73,10 @@ class AccountAddress {
     addressBackBtn() {
         return cy.get('a[title="Back"]').click()
     }
+
+    addressSuccessAlert() {
+        return cy.get('.alert.alert-success')
+    }
 }
 
-export default AccountAddress;
+export default AccountAddressPage;

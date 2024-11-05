@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-class AccountDetails{
+class AccountDetailsPage {
 
     title() {
         return cy.get('.maintext')
@@ -55,4 +55,4 @@ class AccountDetails{
     }
 }
 
-export default AccountDetails
+export default AccountDetailsPage
